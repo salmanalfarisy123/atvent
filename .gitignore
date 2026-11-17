@@ -50,3 +50,7 @@ app.*.map.json
 
 # Local IDE settings
 .vscode/
+!/build/
+/build/*
+!/build/web/
+!/build/web/**
