@@ -154,93 +154,161 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  // HERO SECTION
-  Widget _buildHero(bool isMobile) {
-    return Container(
-      width: double.infinity,
-      padding: EdgeInsets.symmetric(
-        horizontal: isMobile ? 25 : 100,
-        vertical: isMobile ? 75 : 110,
-      ),
-      decoration: const BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-          colors: [
-            Color(0xFF29231A),
-            Color(0xFF171717),
-            Color(0xFF111111),
-          ],
-        ),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+
+// HERO SECTION
+Widget _buildHero(bool isMobile) {
+  final heroContent = Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      Row(
         children: [
-          Row(
-            children: [
-              Container(
-                width: 35,
-                height: 1,
-                color: goldColor,
-              ),
-              const SizedBox(width: 12),
-              const Text(
-                'DISCOVER SOMETHING EXTRAORDINARY',
-                style: TextStyle(
-                  color: goldColor,
-                  fontSize: 11,
-                  letterSpacing: 2,
-                ),
-              ),
-            ],
+          Container(
+            width: 35,
+            height: 1,
+            color: goldColor,
           ),
-          const SizedBox(height: 30),
-          Text(
-            'Every Event Has\nA Story To Tell.',
+          const SizedBox(width: 12),
+          const Text(
+            'DISCOVER SOMETHING EXTRAORDINARY',
             style: TextStyle(
-              color: ivoryColor,
-              fontSize: isMobile ? 43 : 68,
-              height: 1.15,
-              fontWeight: FontWeight.w700,
-              letterSpacing: -1.5,
-            ),
-          ),
-          const SizedBox(height: 22),
-          ConstrainedBox(
-            constraints: const BoxConstraints(maxWidth: 480),
-            child: const Text(
-              'Discover inspiring events, unforgettable performances, '
-              'and meaningful experiences. Find your next moment with us.',
-              style: TextStyle(
-                color: Colors.white60,
-                fontSize: 15,
-                height: 1.8,
-              ),
-            ),
-          ),
-          const SizedBox(height: 35),
-          ElevatedButton.icon(
-            onPressed: () {
-              setState(() {
-                selectedCategory = 'Semua';
-                searchQuery = '';
-              });
-            },
-            icon: const Icon(Icons.explore_outlined, size: 18),
-            label: const Text('Explore Events'),
-            style: ElevatedButton.styleFrom(
-              backgroundColor: goldColor,
-              foregroundColor: backgroundColor,
-              padding: const EdgeInsets.symmetric(
-                horizontal: 27,
-                vertical: 19,
-              ),
+              color: goldColor,
+              fontSize: 11,
+              letterSpacing: 2,
             ),
           ),
         ],
       ),
-    );
-  }
+      const SizedBox(height: 30),
+      Text(
+        'Every Event Has\nA Story To Tell.',
+        style: TextStyle(
+          color: ivoryColor,
+          fontSize: isMobile ? 43 : 62,
+          height: 1.15,
+          fontWeight: FontWeight.w700,
+          letterSpacing: -1.5,
+        ),
+      ),
+      const SizedBox(height: 22),
+      
+ConstrainedBox(
+  constraints: const BoxConstraints(maxWidth: 480),
+  child: const Text(
+    'Discover inspiring events, unforgettable performances, '
+    'and meaningful experiences. Find your next moment with us.',
+    style: TextStyle(
+      color: Colors.white60,
+      fontSize: 15,
+      height: 1.8,
+    ),
+  ),
+),
+
+      const SizedBox(height: 35),
+      ElevatedButton.icon(
+        onPressed: () {
+          setState(() {
+            selectedCategory = 'Semua';
+            searchQuery = '';
+          });
+        },
+        icon: const Icon(Icons.explore_outlined, size: 18),
+        label: const Text('Explore Events'),
+        style: ElevatedButton.styleFrom(
+          backgroundColor: goldColor,
+          foregroundColor: backgroundColor,
+          padding: const EdgeInsets.symmetric(
+            horizontal: 27,
+            vertical: 19,
+          ),
+        ),
+      ),
+    ],
+  );
+
+  final heroImage = Container(
+    height: isMobile ? 260 : 390,
+    width: double.infinity,
+    decoration: BoxDecoration(
+      borderRadius: BorderRadius.circular(18),
+      border: Border.all(
+        color: goldColor.withValues(alpha: 0.3),
+      ),
+      boxShadow: [
+        BoxShadow(
+          color: Colors.black.withValues(alpha: 0.3),
+          blurRadius: 25,
+          offset: const Offset(0, 12),
+        ),
+      ],
+    ),
+    clipBehavior: Clip.antiAlias,
+    child: Stack(
+      fit: StackFit.expand,
+      children: [
+        Image.asset(
+          'assets/images/hero_event.jpg',
+          fit: BoxFit.cover,
+        ),
+        DecoratedBox(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.centerLeft,
+              end: Alignment.centerRight,
+              colors: [
+                Colors.black.withValues(alpha: 0.2),
+                Colors.transparent,
+              ],
+            ),
+          ),
+        ),
+      ],
+    ),
+  );
+
+  return Container(
+    width: double.infinity,
+    padding: EdgeInsets.symmetric(
+      horizontal: isMobile ? 25 : 100,
+      vertical: isMobile ? 65 : 85,
+    ),
+    decoration: const BoxDecoration(
+      gradient: LinearGradient(
+        begin: Alignment.topLeft,
+        end: Alignment.bottomRight,
+        colors: [
+          Color(0xFF29231A),
+          Color(0xFF171717),
+          Color(0xFF111111),
+        ],
+      ),
+    ),
+    child: isMobile
+        ? Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              heroContent,
+              const SizedBox(height: 40),
+              heroImage,
+            ],
+          )
+        : Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Expanded(
+                flex: 6,
+                child: heroContent,
+              ),
+              const SizedBox(width: 55),
+              Expanded(
+                flex: 5,
+                child: heroImage,
+              ),
+            ],
+          ),
+  );
+}
+
 
   // SEARCH SECTION
   Widget _buildSearchSection(bool isMobile) {
